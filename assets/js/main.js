@@ -4,7 +4,20 @@
 $(document).ready(function () {
     $('#hello').text('Stayed at the Ace Hotel!');
     console.log("Stayed at the ace hotel!");
+
+    // topics array for buttons
+    var topics = ['puppy', 'kitten', 'hamster', 'guinea pig', 'bird', 'fish', 'giraffe', 'penguin', 'elephant', 'kangaroo']; 
+
+    // looping through topics array and rendering buttons to html/DOM
+    for (i = 0; i < topics.length; i ++) {
+        var b = $('<button>').addClass('btn');
+        b.text(topics[i]);
+        $('#topics').append(b);
+        console.log('Added ' + topics[i] + ' button.')
+    }
 });
+
+
 
 
 
@@ -38,10 +51,10 @@ In this assignment, you'll use the GIPHY API to make a dynamic web page that pop
 
 ### Instructions
 
-1. Before you can make any part of our site work, you need to create an array of strings, each one related to a topic that interests you. Save it to a variable called `topics`.
+DONE 1. Before you can make any part of our site work, you need to create an array of strings, each one related to a topic that interests you. Save it to a variable called `topics`.
    * We chose animals for our theme, but you can make a list to your own liking.
 
-2. Your app should take the topics in this array and create buttons in your HTML.
+DONE 2. Your app should take the topics in this array and create buttons in your HTML.
    * Try using a loop that appends a button for each string in the array.
 
 3. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.

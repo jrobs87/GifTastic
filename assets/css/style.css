@@ -2,3 +2,9 @@ body {
     background: black;
     color: white;
 }
+
+.btn {
+    color: white;
+    border: 1px solid white;
+    margin: 1em;
+}
