@@ -2,23 +2,92 @@
 
 // A $( document ).ready() block.
 $(document).ready(function () {
+
+    
+
+
+
+
+
+
     $('#hello').text('Stayed at the Ace Hotel!');
     console.log("Stayed at the ace hotel!");
 
+
+
     // topics array for buttons
-    var topics = ['puppy', 'kitten', 'hamster', 'guinea pig', 'bird', 'fish', 'giraffe', 'penguin', 'elephant', 'kangaroo']; 
+    var topics = ['Dog', 'Cats', 'Hamster', 'Hippo', 'Bird', 'Fish', 'Giraffe', 'Penguin', 'Elephant', 'Kangaroo'];
 
     // looping through topics array and rendering buttons to html/DOM
-    for (i = 0; i < topics.length; i ++) {
-        var b = $('<button>').addClass('btn');
+    for (i = 0; i < topics.length; i++) {
+        var b = $('<button>').addClass('nav-item');
+        // var fa = $('<i>').addClass(topics[i].fontAwesomeClass);
         b.text(topics[i]);
+        // b.append(fa);
         $('#topics').append(b);
-        console.log('Added ' + topics[i] + ' button.')
+        // console.log('Added ' + topics[i] + ' button.')
     }
+
+    $('.nav-item').on('click', function () {
+        var searchAnimal = $(this).text();
+     
+
+        for (i = 0; i < 10; i++) {
+        
+        // < =============== BEGIN GIPHY AJAX CALL =============== >
+        // this method works but can result in a 429 error (server denies request) due to too many requests
+        var apiKey = 'dc6zaTOxFJmzC';
+        var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + apiKey + '&tag=' + searchAnimal + '&limit=10';
+
+        $.ajax({
+            url: queryURL,
+            method: "GET",
+            // dataType: 'jsonp'
+        }).then(function (response) {
+            // console.log(response);
+
+        
+            // $('#test').append($(`<img src="${response.data.images.original.url}"/>`));
+           var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
+           srcStill = img.attr('data-src-still').toString(); // sets default to still img
+           img.attr('src', srcStill);
+           img.addClass('gif');
+           img.css('opacity', '0');
+           $('#test').append(img);
+           
+           setTimeout(function() { 
+            img.css('opacity', '1');
+            }, 500);
+
+           
+
+        });
+        // $('.gif').gifplayer();
+        
+    }
+        // < =============== END GIPHY AJAX CALL =============== >
+    });
 });
 
+ScrollReveal().reveal('.navbar');
+ScrollReveal().reveal('.gif');
 
 
+
+$(function() {
+    $(document).on("click", '.gif', function() {
+
+        var still = $(this).attr('data-src-still').toString();
+        console.log(still);
+        var play = $(this).attr('data-src').toString();
+        if ( $(this).attr('src') === still ) {
+            $(this).attr('src', play);
+        } else {
+            $(this).attr('src', still);
+        };
+        document.body.style.cursor = "default"; //resets cursor to default (was changing to horizontal arrow after clicking img)
+    });
+});
 
 
 /*

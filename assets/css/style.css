@@ -1,10 +1,42 @@
 body {
-    background: black;
+    background: white;
+    color: black; 
+}
+
+.navbar {
+    border-bottom: .1em solid black;
+}
+
+.orangered {
+    color: orangered;
+}
+
+.nav-item {
+    margin: 0 .5em 0 .5em;
+    padding: .5em;
+    background: none;
+    border: none;
+    text-align: left;
+    
+}
+
+.fas {
+    margin-left: .5em;
+    color: black;
+}
+
+.nav-item:hover {
+    color: orangered;
+}
+
+.fas:hover {
     color: white;
 }
 
-.btn {
-    color: white;
-    border: 1px solid white;
-    margin: 1em;
+.gif {
+    /* transition-delay: .1s; */
+    transition-duration: .4s;
 }
+
+
+
