@@ -30,7 +30,6 @@ $(document).ready(function () {
 
 
         for (i = 0; i < 10; i++) {
-        
         // < =============== BEGIN GIPHY AJAX CALL =============== >
         // this method works but can result in a 429 error (server denies request) due to too many requests
         var apiKey = 'dc6zaTOxFJmzC';
@@ -69,7 +68,6 @@ ScrollReveal().reveal('.gif');
 
 $(function() {
     $(document).on("click", '.gif', function() {
-
         var still = $(this).attr('data-src-still').toString();
         console.log(still);
         var play = $(this).attr('data-src').toString();
@@ -79,12 +77,13 @@ $(function() {
             $(this).attr('src', still);
         };
         document.body.style.cursor = "default"; //resets cursor to default (was changing to horizontal arrow after clicking img)
-    });
-
-    
+    });    
 });
 
 
+$('#clear').on('click', function() {
+$('#grid').empty();
+})
 /*
 # GifTastic
 
