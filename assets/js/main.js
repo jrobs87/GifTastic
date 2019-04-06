@@ -3,13 +3,6 @@
 // A $( document ).ready() block.
 $(document).ready(function () {
 
-    
-
-
-
-
-
-
     $('#hello').text('Stayed at the Ace Hotel!');
     console.log("Stayed at the ace hotel!");
 
@@ -31,6 +24,10 @@ $(document).ready(function () {
     $('.nav-item').on('click', function () {
         var searchAnimal = $(this).text();
      
+// for ( a = 0; a < 2; a ++) {
+
+//         var row = $('<div>').addClass('row');
+
 
         for (i = 0; i < 10; i++) {
         
@@ -42,29 +39,25 @@ $(document).ready(function () {
         $.ajax({
             url: queryURL,
             method: "GET",
-            // dataType: 'jsonp'
         }).then(function (response) {
-            // console.log(response);
+            // console.log(response); // preserved this jsut in case i need to quickly console this json data out 
 
-        
-            // $('#test').append($(`<img src="${response.data.images.original.url}"/>`));
            var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
-           srcStill = img.attr('data-src-still').toString(); // sets default to still img
-           img.attr('src', srcStill);
-           img.addClass('gif');
-           img.css('opacity', '0');
-           $('#test').append(img);
+           srcStill = img.attr('data-src-still').toString(); // storing still image to use for default on load
+           img.attr('src', srcStill); // sets default to still img
+           img.addClass('gif img-responsive'); // adding gif class - used for clicking mostly but aslo styling
+           img.css('opacity', '0'); // setting initial opacity to 0 for load animation (toggling visibility doesn't work - keep forgetting this...)
+        //    $(row).append(img);
+        $('#grid').append(img);
            
            setTimeout(function() { 
             img.css('opacity', '1');
             }, 500);
 
-           
-
         });
-        // $('.gif').gifplayer();
-        
-    }
+//     }
+// $('#test').append(row);
+}
         // < =============== END GIPHY AJAX CALL =============== >
     });
 });
@@ -87,6 +80,8 @@ $(function() {
         };
         document.body.style.cursor = "default"; //resets cursor to default (was changing to horizontal arrow after clicking img)
     });
+
+    
 });
 
 

@@ -1,6 +1,6 @@
 body {
-    background: white;
-    color: black; 
+    background: black;
+    color: white; 
 }
 
 .navbar {
@@ -34,9 +34,15 @@ body {
 }
 
 .gif {
-    /* transition-delay: .1s; */
-    transition-duration: .4s;
+    transition-delay: .1s;
+    transition-duration: .8s;
+    min-width: 20%;
+    max-height: 100%;
+    max-width: 100%;
+    padding: 1em;
+    margin: auto;
 }
+
 
 
 
