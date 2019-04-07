@@ -20,6 +20,12 @@ body {
     
 }
 
+#grid {
+    text-align: center;
+    background: teal;
+    /* width: 100%; */
+}
+
 .fas {
     margin-left: .5em;
     color: black;
@@ -36,12 +42,12 @@ body {
 .gif {
     transition-delay: .1s;
     transition-duration: .8s;
-    min-width: 20%;
-    max-height: 50%;
-    max-width:20%;
-    padding: 1em;
-    margin: auto;
+ 
+    background: orangered;
+    /* margin: auto; */
+    cursor: pointer;
 }
+
 
 #clear {
     font-size: 1em;

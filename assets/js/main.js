@@ -23,67 +23,77 @@ $(document).ready(function () {
 
     $('.nav-item').on('click', function () {
         var searchAnimal = $(this).text();
-     
-// for ( a = 0; a < 2; a ++) {
 
-//         var row = $('<div>').addClass('row');
+        // for ( a = 0; a < 2; a ++) {
+
+        //         var row = $('<div>').addClass('row');
 
 
         for (i = 0; i < 10; i++) {
-        // < =============== BEGIN GIPHY AJAX CALL =============== >
-        // this method works but can result in a 429 error (server denies request) due to too many requests
-        var apiKey = 'dc6zaTOxFJmzC';
-        var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + apiKey + '&tag=' + searchAnimal + '&limit=10';
+            // < =============== BEGIN GIPHY AJAX CALL =============== >
+            // this method works but can result in a 429 error (server denies request) due to too many requests
+            var apiKey = 'dc6zaTOxFJmzC';
+            var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + apiKey + '&tag=' + searchAnimal + '&limit=10';
 
-        $.ajax({
-            url: queryURL,
-            method: "GET",
-        }).then(function (response) {
-            // console.log(response); // preserved this jsut in case i need to quickly console this json data out 
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+            }).then(function (response) {
+                // console.log(response); // preserved this jsut in case i need to quickly console this json data out 
 
-           var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
-           srcStill = img.attr('data-src-still').toString(); // storing still image to use for default on load
-           img.attr('src', srcStill); // sets default to still img
-           img.addClass('gif img-responsive'); // adding gif class - used for clicking mostly but aslo styling
-           img.css('opacity', '0'); // setting initial opacity to 0 for load animation (toggling visibility doesn't work - keep forgetting this...)
-        //    $(row).append(img);
-        $('#grid').append(img);
-           
-           setTimeout(function() { 
-            img.css('opacity', '1');
-            }, 500);
+                var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
+                var srcStill = img.attr('data-src-still').toString(); // storing still image to use for default on load
+                var gridItem = 'grid-item';
 
-        });
-//     }
-// $('#test').append(row);
-}
+                img.attr('src', srcStill); // sets default to still img
+
+                img.addClass('gif img-responsive'); // adding gif class - used for clicking mostly but aslo styling
+                img.css('opacity', '0'); // setting initial opacity to 0 for load animation (toggling visibility doesn't work - keep forgetting this...)
+                //    $(row).append(img);
+                $('#grid').append(img);
+
+                setTimeout(function () {
+                    img.css('opacity', '1');
+                }, 500);
+
+            });
+            //     }
+            // $('#test').append(row);
+
+        }
         // < =============== END GIPHY AJAX CALL =============== >
     });
 });
 
-ScrollReveal().reveal('.navbar');
-ScrollReveal().reveal('.gif');
 
 
 
-$(function() {
-    $(document).on("click", '.gif', function() {
+
+$(function () {
+    $(document).on("click", '.gif', function () {
         var still = $(this).attr('data-src-still').toString();
         console.log(still);
         var play = $(this).attr('data-src').toString();
-        if ( $(this).attr('src') === still ) {
+        if ($(this).attr('src') === still) {
             $(this).attr('src', play);
         } else {
             $(this).attr('src', still);
         };
         document.body.style.cursor = "default"; //resets cursor to default (was changing to horizontal arrow after clicking img)
-    });    
+    });
+
 });
 
 
-$('#clear').on('click', function() {
-$('#grid').empty();
+$('#clear').on('click', function () {
+    $('#grid').empty();
 })
+
+ScrollReveal().reveal('.navbar');
+
+// ScrollReveal().reveal('.gif');
+
+
 /*
 # GifTastic
 
@@ -122,7 +132,7 @@ DONE 2. Your app should take the topics in this array and create buttons in your
 
 3. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
 
-4. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
+DONE 4. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
 
 5. Under every gif, display its rating (PG, G, so on).
    * This data is provided by the GIPHY API.
