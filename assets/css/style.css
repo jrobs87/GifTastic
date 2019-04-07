@@ -1,10 +1,11 @@
 body {
     background: black;
-    color: white; 
+    color: white;
 }
 
 .navbar {
-    border-bottom: .1em solid black;
+    background: black;
+    border-bottom: .1em solid orangered;
 }
 
 .orangered {
@@ -15,15 +16,27 @@ body {
     margin: 0 .5em 0 .5em;
     padding: .5em;
     background: none;
+    color: white;
     border: none;
+    border-radius: .1em;
     text-align: left;
-    
+    text-align: center;
 }
 
 #grid {
+    align-content: center;
     text-align: center;
-    background: teal;
-    /* width: 100%; */
+    padding-bottom: 20%;
+}
+
+.row {
+    align-content: left;
+}
+
+.col {
+    margin-top: 5%;
+    
+    padding: 0;
 }
 
 .fas {
@@ -35,26 +48,97 @@ body {
     color: orangered;
 }
 
-.fas:hover {
-    color: white;
-}
-
 .gif {
     transition-delay: .1s;
     transition-duration: .8s;
- 
-    background: orangered;
-    /* margin: auto; */
     cursor: pointer;
+    max-height: 300px;
+    margin: .5em;
+    border-radius: 10px;
 }
 
+#footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0em;
+    background: rgba(0, 0, 0, 0.5);
+    padding: .7em 0 .5em 0;
+    transition-duration: 1s;
+}
 
-#clear {
-    font-size: 1em;
-    background: orangered;
+#footer:hover {
+    background: black;
+}
+
+.fas {
+    font-size: 1.5em;
+    color: white;
+}
+
+.fas:hover {
+    color: orangered;
+}
+
+.footer-col {
+    margin: 0;
+    text-align: center;
+}
+
+.footer-button {
+    background: none;
+    border: none;
+} 
+
+#search-modal {
+    opacity: 0;
+    visibility: hidden;
+    height: 100vh;
+    width: 100%;
+    background: black;
+    position: fixed;
+    top: 0;
+    display: block;
+    z-index: 1050;
+}
+
+#search-box {
+    margin-top: 16%;
+}
+
+.search-btn {
+    background: none;
+    color: white;
+    border: none;
+    margin: 0 1em 0 0;
+    padding-left: 0;
+}
+
+.search-btn:hover {
+    color: orangered;
+    background: none;
+}
+
+button:focus {
+    outline: none;
     border: none;
 }
 
 
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {}
 
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .gifs {
+        max-width: 360px;
+    }
+}
 
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { }
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}

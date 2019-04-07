@@ -3,14 +3,10 @@
 // A $( document ).ready() block.
 $(document).ready(function () {
 
-    $('#hello').text('Stayed at the Ace Hotel!');
-    console.log("Stayed at the ace hotel!");
-
-
-
     // topics array for buttons
     var topics = ['Dog', 'Cats', 'Hamster', 'Hippo', 'Bird', 'Fish', 'Giraffe', 'Penguin', 'Elephant', 'Kangaroo'];
-
+var searchAnimal = '';
+    // < =============== BEGIN RENDERING NAV ITEM =============== >
     // looping through topics array and rendering buttons to html/DOM
     for (i = 0; i < topics.length; i++) {
         var b = $('<button>').addClass('nav-item');
@@ -20,74 +16,83 @@ $(document).ready(function () {
         $('#topics').append(b);
         // console.log('Added ' + topics[i] + ' button.')
     }
+    // < =============== END RENDERING NAV ITEM =============== >
 
-    $('.nav-item').on('click', function () {
-        var searchAnimal = $(this).text();
+    gifSearch = function (searchAnimal) {
+        for (a = 0; a < 4; a++) {
+            var row = $('<div>').addClass('row');
+            for (i = 0; i < 3; i++) {
+                // < =============== BEGIN GIPHY AJAX CALL =============== >
+                // this method works but can result in a 429 error (server denies request) due to too many requests
+                var apiKey = 'dc6zaTOxFJmzC';
+                var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + apiKey + '&tag=' + searchAnimal + '&limit=10';
 
-        // for ( a = 0; a < 2; a ++) {
+                $.ajax({
+                    url: queryURL,
+                    method: "GET",
+                }).then(function (response) {
+                    // console.log(response); // preserved this just in case i need to quickly console this json data out 
 
-        //         var row = $('<div>').addClass('row');
+                    var col = $('<div>').addClass('col');
+                    var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
+                    var srcStill = img.attr('data-src-still').toString(); // storing still image to use for default on load
 
+                    img.attr('src', srcStill); // sets default to still img
 
-        for (i = 0; i < 10; i++) {
-            // < =============== BEGIN GIPHY AJAX CALL =============== >
-            // this method works but can result in a 429 error (server denies request) due to too many requests
-            var apiKey = 'dc6zaTOxFJmzC';
-            var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + apiKey + '&tag=' + searchAnimal + '&limit=10';
+                    img.addClass('gif img-responsive'); // adding gif class - used for clicking mostly but aslo styling
+                    img.css('opacity', '0'); // setting initial opacity to 0 for load animation (toggling visibility doesn't work - keep forgetting this...)
+                    //    $(row).append(img);
+                    $(col).append(img);
+                    $(row).append(col);
 
-            $.ajax({
-                url: queryURL,
-                method: "GET",
-            }).then(function (response) {
-                // console.log(response); // preserved this jsut in case i need to quickly console this json data out 
+                    setTimeout(function () {
+                        img.css('opacity', '1');
+                    }, 500);
 
-                var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
-                var srcStill = img.attr('data-src-still').toString(); // storing still image to use for default on load
-                var gridItem = 'grid-item';
-
-                img.attr('src', srcStill); // sets default to still img
-
-                img.addClass('gif img-responsive'); // adding gif class - used for clicking mostly but aslo styling
-                img.css('opacity', '0'); // setting initial opacity to 0 for load animation (toggling visibility doesn't work - keep forgetting this...)
-                //    $(row).append(img);
-                $('#grid').append(img);
-
-                setTimeout(function () {
-                    img.css('opacity', '1');
-                }, 500);
-
-            });
-            //     }
-            // $('#test').append(row);
+                });
+                //     }
+                $('#grid').append(row);
+            }
 
         }
-        // < =============== END GIPHY AJAX CALL =============== >
+    }
+    // < =============== END GIPHY AJAX CALL =============== >
+
+
+    $('.nav-item').on('click', function () {
+        searchAnimal = $(this).text();
+        gifSearch(searchAnimal);
+        
     });
+    
+    $('#more').on('click', gifSearch());
+
+
+    // < =============== BEGIN GIF PLAYBACK TOGGLE =============== >
+    $(function () {
+        $(document).on("click", '.gif', function () {
+            var still = $(this).attr('data-src-still').toString();
+            console.log('toggle play');
+            var play = $(this).attr('data-src').toString();
+            if ($(this).attr('src') === still) {
+                $(this).attr('src', play);
+            } else {
+                $(this).attr('src', still);
+            };
+            document.body.style.cursor = "default"; //resets cursor to default (was changing to horizontal arrow after clicking img)
+        });
+
+    });
+    // < =============== END GIF PLAYBACK TOGGLE =============== >
+
+    $('#clear').on('click', function () {
+        $('#grid').empty();
+    })
+
+
 });
 
 
-
-
-
-$(function () {
-    $(document).on("click", '.gif', function () {
-        var still = $(this).attr('data-src-still').toString();
-        console.log(still);
-        var play = $(this).attr('data-src').toString();
-        if ($(this).attr('src') === still) {
-            $(this).attr('src', play);
-        } else {
-            $(this).attr('src', still);
-        };
-        document.body.style.cursor = "default"; //resets cursor to default (was changing to horizontal arrow after clicking img)
-    });
-
-});
-
-
-$('#clear').on('click', function () {
-    $('#grid').empty();
-})
 
 ScrollReveal().reveal('.navbar');
 
