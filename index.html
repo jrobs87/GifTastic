@@ -20,11 +20,12 @@
     <script src="https://unpkg.com/scrollreveal"></script>
     <!-- my styles -->
     <link rel="stylesheet" href="assets/css/style.css">
+
     <title>GifTastic</title>
 </head>
 
 <body>
-
+    <!-- BEGIN NAVIGATION ELEMENTS -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#"><span class="orangered">Gif</span>Tastic</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -34,52 +35,61 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav" id="topics">
                 <!-- js renders this content from 'topics' array -->
-
             </div>
         </div>
     </nav>
+    <!-- END NAVIGATION ELEMENTS -->
 
+    <!-- BEGIN GIF APP ELEMENTS -->
     <div class="container-fluid" id="grid">
         <!-- gif images are loaded dynamically via jquery here -->
-        
-    </div>
 
+    </div>
+    <!-- END GIF APP ELEMENTS -->
+
+    <!-- BEGIN FOOTER ELEMENTS -->
     <div id="footer" class="container-fluid">
         <div class="row footer-row">
-<div class="col footer-col"><button id="add" class="footer-button"><i class="fas fa-search"></i></button></div>
-<div class="col footer-col"><button id="more" class="footer-button"><i class="fas fa-chevron-down"></i></button></div>
-<div class="col footer-col"><button id="clear" class="footer-button"><i class="fas fa-trash-alt"></i></button></div>
-            
-            
-</div>
-            
-    </div>
+            <div class="col footer-col"><button id="add" class="footer-button"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="col footer-col"><button id="more" class="footer-button"><i
+                        class="fas fa-chevron-down"></i></button></div>
+            <div class="col footer-col"><button id="clear" class="footer-button"><i
+                        class="fas fa-trash-alt"></i></button></div>
 
+
+        </div>
+
+    </div>
+    <!-- END FOOTER ELEMENTS -->
+
+    <!-- BEGIN MODAL ELEMENTS -->
     <div id="search-modal">
         <div id="search-box">
             <div class="container">
                 <div id="search-options" class="row">
                     <div class="col">
-              
-                            <form>
-                                    <div class="form-group">
-                                      <input type="email" class="form-control" id="form-input" placeholder="Chimpanzee" style=" font-size: 3em; background: none; border: none; padding: 0;border-bottom: 1px solid orangered">
-                                      <small id="emailHelp" class="form-text text-muted">Search for your favorite aniamls! </small>
-                                    </div>
-                                  </form>
-                    
-                   
-                        <button type="submit" class="search-btn">Search</button>
-                        <button type="submit" class="search-btn">Add to Menu</button>
+                        <!-- form elements for searching gifs -->
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control" id="form-input" placeholder="Chimpanzee"
+                                    style=" font-size: 3em; background: none; border: none; padding: 0;border-bottom: 1px solid orangered">
+                                <small id="emailHelp" class="form-text text-muted">Search for your favorite aniamls!
+                                </small>
+                            </div>
+                        </form>
+                        <!-- buttons to search and add to menu -->
+                        <button type="submit" class="search-btn" id="search">Search</button>
+                        <button type="submit" class="search-btn" id="addTopic">Add to Menu</button>
+                        <button type="submit" class="search-btn" id="close">Close</button>
                     </div>
-                    
                 </div>
             </div>
         </div>
     </div>
+    <!-- END MODAL ELEMENTS -->
 
-    
-    
+    <!-- ==================== BEGIN JS ==================== -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- using min instead of slim b/c ajax is not included in slim build -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -94,6 +104,9 @@
 
     <!-- Custom JavaScript -->
     <script src="assets/js/main.js"></script>
+
+    <!-- ==================== END JS ==================== -->
+
 </body>
 
 </html>

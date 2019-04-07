@@ -1,26 +1,34 @@
 // [========== GIPHY API KEY > teJ9nr36fk7rqyaRZv2EZcC32RyTeSRc ==========]
 
-// A $( document ).ready() block.
-$(document).ready(function () {
+$(document).ready(function () { // BEGIN DOCUMENT READY BLOCK
 
-    // topics array for buttons
-    var topics = ['Dog', 'Cats', 'Hamster', 'Hippo', 'Bird', 'Fish', 'Giraffe', 'Penguin', 'Elephant', 'Kangaroo'];
-var searchAnimal = '';
-    // < =============== BEGIN RENDERING NAV ITEM =============== >
+    // topics array for buttons and animal search variable (grabs previous search/API call 
+    // 'more' button grabs this to continue loading more of the same gifs from the last search
+    var topics = ['Dog', 'Cat', 'Hamster', 'Lion', 'Bird', 'Fish', 'Giraffe', 'Penguin', 'Elephant', 'Kangaroo'];
+    var searchAnimal = 'Dog';
+
+    // < =============== BEGIN RENDERING NAV ITEM FROM TOPIC ARRAY =============== >
     // looping through topics array and rendering buttons to html/DOM
-    for (i = 0; i < topics.length; i++) {
-        var b = $('<button>').addClass('nav-item');
-        // var fa = $('<i>').addClass(topics[i].fontAwesomeClass);
-        b.text(topics[i]);
-        // b.append(fa);
-        $('#topics').append(b);
-        // console.log('Added ' + topics[i] + ' button.')
+    topicsArray = function () {
+        $('#topics').empty();
+        for (i = 0; i < topics.length; i++) {
+            var b = $('<button>').addClass('nav-item');
+            // var fa = $('<i>').addClass(topics[i].fontAwesomeClass);
+            b.text(topics[i]);
+            // b.append(fa);
+            $('#topics').append(b);
+            // console.log('Added ' + topics[i] + ' button.')
+        };
     }
-    // < =============== END RENDERING NAV ITEM =============== >
 
+    
+    // < =============== END RENDERING NAV ITEM FROM TOPIC ARRAY =============== >
+
+    // < =============== BEGIN GIF SEARCH, API CALL, AND RENDERING GIFS =============== >
     gifSearch = function (searchAnimal) {
         for (a = 0; a < 4; a++) {
             var row = $('<div>').addClass('row');
+
             for (i = 0; i < 3; i++) {
                 // < =============== BEGIN GIPHY AJAX CALL =============== >
                 // this method works but can result in a 429 error (server denies request) due to too many requests
@@ -33,8 +41,9 @@ var searchAnimal = '';
                 }).then(function (response) {
                     // console.log(response); // preserved this just in case i need to quickly console this json data out 
 
-                    var col = $('<div>').addClass('col');
+                    var col = $('<div>').addClass('col-md');
                     var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
+                    var rating = '';
                     var srcStill = img.attr('data-src-still').toString(); // storing still image to use for default on load
 
                     img.attr('src', srcStill); // sets default to still img
@@ -57,15 +66,73 @@ var searchAnimal = '';
         }
     }
     // < =============== END GIPHY AJAX CALL =============== >
+    // < =============== END GIF SEARCH, API CALL, AND RENDERING GIFS =============== >
 
+    topicsArray();
+    // < =============== BEGIN EVENT LISTENERS =============== >
+   
 
-    $('.nav-item').on('click', function () {
+$('#add').on('click', function() {
+    $('#search-modal').css("visibility", "visible");
+    $('#search-modal').css( "opacity", "1");  
+})    
+
+// validate = function(a) {
+//     if (a === '') {
+//         alert('Cannot search for blanks');
+
+//     } 
+// }
+
+$('#search').on('click', function() {
+    var newTopic = $('#form-input').val();
+    newTopic.charAt(0).toUpperCase() + newTopic.slice(1);
+    if (newTopic === '') {
+        $('#form-input').attr('placeholder', 'What is your favorite animal?');
+        console.log('Cannot search for undefined');
+    } else {
+    gifSearch(newTopic);
+    $('#search-modal').css("visibility", "hidden");
+    $('#search-modal').css( "opacity", "0"); 
+    searchAnimal = newTopic;
+}
+})
+
+$('#addTopic').on('click', function() {
+    var newTopic = $('#form-input').val();
+    var newTopic = $('#form-input').val();
+    newTopic.charAt(0).toUpperCase() + newTopic.slice(1);
+    if (newTopic === '') {
+        $('#form-input').attr('placeholder', 'What is your favorite animal?');
+        console.log('Cannot search for undefined');
+    } else {
+    topics.push(newTopic);
+    topicsArray();
+    gifSearch(newTopic);
+    $('#search-modal').css("visibility", "hidden");
+    $('#search-modal').css( "opacity", "0"); 
+    searchAnimal = newTopic;
+    }
+})
+
+$('#close').on('click', function() {
+    $('#search-modal').css("visibility", "hidden");
+    $('#search-modal').css( "opacity", "0"); 
+})
+
+    $('#more').on('click', function () {
+        console.log('Previous search was ' + searchAnimal);
+        gifSearch(searchAnimal);
+    });
+
+    $('#clear').on('click', function () {
+        $('#grid').empty();
+    })
+
+    $(document).on("click", '.nav-item', function () { // had to add event listner to document because the new 'nav-item' is dynamically rendered - tricky tricky...
         searchAnimal = $(this).text();
         gifSearch(searchAnimal);
-        
     });
-    
-    $('#more').on('click', gifSearch());
 
 
     // < =============== BEGIN GIF PLAYBACK TOGGLE =============== >
@@ -84,20 +151,14 @@ var searchAnimal = '';
 
     });
     // < =============== END GIF PLAYBACK TOGGLE =============== >
+    // < =============== END FOOTER MENU EVENT LISTENERS =============== >
 
-    $('#clear').on('click', function () {
-        $('#grid').empty();
-    })
+    
+}); // END DOCUMENT READY BLOCK
 
-
-});
-
-
-
-ScrollReveal().reveal('.navbar');
+ScrollReveal().reveal('.navbar'); // initialize scroll reveal animations (header and footer)
 
 // ScrollReveal().reveal('.gif');
-
 
 /*
 # GifTastic
