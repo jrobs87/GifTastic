@@ -101,6 +101,10 @@ body {
     transition: 0.5s;
 }
 
+#search-options {
+    padding: 1em;
+}
+
 #search-box {
     margin-top: 16%;
 }
@@ -134,13 +138,15 @@ button:focus {
 }
 
 /* // Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {}
+@media (max-width: 575.98px) {
+    .gif {
+        max-width: 340px;
+    }
+}
 
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-    .gifs {
-        max-width: 360px;
-    }
+   
 }
 
 /* // Medium devices (tablets, 768px and up) */

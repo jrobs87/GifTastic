@@ -17,18 +17,18 @@ $(document).ready(function () { // BEGIN DOCUMENT READY BLOCK
             b.text(topics[i]);
             // b.append(fa);
             $('#topics').append(b);
-            // console.log('Added ' + topics[i] + ' button.')
         };
+        console.log('Nav Items rendered.')
     }
 
     // < =============== END RENDERING NAV ITEM FROM TOPIC ARRAY =============== >
 
     // < =============== BEGIN GIF SEARCH, API CALL, AND RENDERING GIFS =============== >
     gifSearch = function (searchAnimal) {
-        for (a = 0; a < 4; a++) {
+        for (a = 0; a < 1; a++) {
             var row = $('<div>').addClass('row');
 
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < 10; i++) {
                 // < =============== BEGIN GIPHY AJAX CALL =============== >
                 // this method works but can result in a 429 error (server denies request) due to too many requests
                 var apiKey = 'dc6zaTOxFJmzC';
@@ -42,6 +42,8 @@ $(document).ready(function () { // BEGIN DOCUMENT READY BLOCK
                     method: "GET",
                 }).then(function (response) {
                     console.log(response); // preserved this just in case i need to quickly console this json data out 
+
+                    
 
                     var col = $('<div>').addClass('col-md');
                     var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
