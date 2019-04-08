@@ -21,7 +21,6 @@ $(document).ready(function () { // BEGIN DOCUMENT READY BLOCK
         };
     }
 
-    
     // < =============== END RENDERING NAV ITEM FROM TOPIC ARRAY =============== >
 
     // < =============== BEGIN GIF SEARCH, API CALL, AND RENDERING GIFS =============== >
@@ -33,13 +32,16 @@ $(document).ready(function () { // BEGIN DOCUMENT READY BLOCK
                 // < =============== BEGIN GIPHY AJAX CALL =============== >
                 // this method works but can result in a 429 error (server denies request) due to too many requests
                 var apiKey = 'dc6zaTOxFJmzC';
-                var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + apiKey + '&tag=' + searchAnimal + '&limit=10';
+                // below returns one gif at a time - q would be more efficient (less API calls) but we are already rolling with this....
+                var queryURL = "https://api.giphy.com/v1/gifs/random?&rating=g&api_key=" + apiKey + '&tag=' + searchAnimal + '&limit=10';
+                // below uses the q param and will bring back a batch of gifs - opted not to use as i went with searching by tag and filtered to show only g
+                // var queryURL = "https://api.giphy.com/v1/gifs/trending?q=" + searchAnimal + "&rating=g&api_key=" + apiKey + '&limit=10'; 
 
                 $.ajax({
                     url: queryURL,
                     method: "GET",
                 }).then(function (response) {
-                    // console.log(response); // preserved this just in case i need to quickly console this json data out 
+                    console.log(response); // preserved this just in case i need to quickly console this json data out 
 
                     var col = $('<div>').addClass('col-md');
                     var img = $(`<img data-src-still="${response.data.images.original_still.url}" data-src="${response.data.images.original.url}"/>`);
@@ -86,7 +88,7 @@ $('#add').on('click', function() {
 
 $('#search').on('click', function() {
     var newTopic = $('#form-input').val();
-    newTopic.charAt(0).toUpperCase() + newTopic.slice(1);
+    // newTopic = newTopic.charAt(0).toUpperCase() + newTopic.slice(1);
     if (newTopic === '') {
         $('#form-input').attr('placeholder', 'What is your favorite animal?');
         console.log('Cannot search for undefined');
@@ -95,13 +97,13 @@ $('#search').on('click', function() {
     $('#search-modal').css("visibility", "hidden");
     $('#search-modal').css( "opacity", "0"); 
     searchAnimal = newTopic;
+    $('#form-input').val('');
 }
 })
 
 $('#addTopic').on('click', function() {
     var newTopic = $('#form-input').val();
-    var newTopic = $('#form-input').val();
-    newTopic.charAt(0).toUpperCase() + newTopic.slice(1);
+    newTopic = newTopic.charAt(0).toUpperCase() + newTopic.slice(1);
     if (newTopic === '') {
         $('#form-input').attr('placeholder', 'What is your favorite animal?');
         console.log('Cannot search for undefined');
@@ -112,6 +114,7 @@ $('#addTopic').on('click', function() {
     $('#search-modal').css("visibility", "hidden");
     $('#search-modal').css( "opacity", "0"); 
     searchAnimal = newTopic;
+    $('#form-input').val('');
     }
 })
 
@@ -134,6 +137,14 @@ $('#close').on('click', function() {
         gifSearch(searchAnimal);
     });
 
+    $('#form-input').on('submit', function() {
+        event.preventDefault();
+        console.log('reigsterd');
+    })
+
+    
+
+    
 
     // < =============== BEGIN GIF PLAYBACK TOGGLE =============== >
     $(function () {
@@ -196,7 +207,7 @@ DONE 1. Before you can make any part of our site work, you need to create an arr
 DONE 2. Your app should take the topics in this array and create buttons in your HTML.
    * Try using a loop that appends a button for each string in the array.
 
-3. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
+DONE 3. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
 
 DONE 4. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
 
@@ -204,7 +215,7 @@ DONE 4. When the user clicks one of the still GIPHY images, the gif should anima
    * This data is provided by the GIPHY API.
    * Only once you get images displaying with button presses should you move on to the next step.
 
-6. Add a form to your page takes the value from a user input box and adds it into your `topics` array. Then make a function call that takes each topic in the array remakes the buttons on the page.
+DONE 6. Add a form to your page takes the value from a user input box and adds it into your `topics` array. Then make a function call that takes each topic in the array remakes the buttons on the page.
 
 7. Deploy your assignment to Github Pages.
 
@@ -222,7 +233,7 @@ Attempt to complete homework assignment as described in instructions. If unable 
 
 1. Ensure your app is fully mobile responsive.
 
-2. Allow users to request additional gifs to be added to the page.
+DONE 2. Allow users to request additional gifs to be added to the page.
    * Each request should ADD 10 gifs to the page, NOT overwrite the existing gifs.
 
 3. List additional metadata (title, tags, etc) for each gif in a clean and readable format.

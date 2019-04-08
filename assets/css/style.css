@@ -129,6 +129,10 @@ button:focus {
     margin-right: 0;
 }
 
+.form-control:focus {
+    box-shadow: none;
+}
+
 /* // Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {}
 
